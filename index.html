@@ -5,7 +5,6 @@
 <meta charset="UTF-8">
 <title>Kazuri Mixed Farms Kenya | Livestock & Poultry Farming</title>
 
-<!-- SEO -->
 <meta name="description" content="Kazuri Mixed Farms Kenya – Professional dairy cattle, goats, sheep, poultry and pig farming in Kibwezi, Makueni County.">
 <meta name="keywords" content="Kazuri Mixed Farms, Dairy Farming Kenya, Poultry Farming, Girolando Cattle, Dorper Sheep">
 <meta name="author" content="Kazuri Mixed Farms Kenya">
@@ -150,6 +149,7 @@ h3 { color: #333; margin-top: 10px; }
 <input type="text" id="name" placeholder="Your Full Name" required>
 <input type="tel" id="phone" placeholder="Phone Number" required>
 <input type="email" id="email" placeholder="Your Email" required>
+<input type="tel" id="mpesaPhone" placeholder="Enter M-Pesa Phone Number (2547...)" required>
 
 <select id="product" onchange="updatePrice()" required>
   <option value="">Select Product</option>
@@ -213,7 +213,7 @@ h3 { color: #333; margin-top: 10px; }
 <p>&copy; 2026 Kazuri Mixed Farms Kenya | All Rights Reserved</p>
 </footer>
 
-<!-- Paystack & Form JS -->
+<!-- Paystack JS -->
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <script>
 function updatePrice(){
@@ -222,12 +222,18 @@ function updatePrice(){
   document.getElementById("total").innerText = price * qty;
 }
 
-function payWithPaystack(amount, customerEmail, orderDetails) {
+function payWithMpesa(amount, customerEmail, phoneNumber, orderDetails) {
   var handler = PaystackPop.setup({
-    key: 'pk_live_78a94366290bcc08fd3e028ad37c47a2347cf7c7c',
+    key: 'pk_live_78a94366290bcc08fd3e028ad37c47a2347cf7c7', // LIVE public key
     email: customerEmail,
     amount: amount * 100,
     currency: "KES",
+    channels: ['mpesa'],
+    metadata: {
+      custom_fields: [
+        { display_name: "Phone Number", variable_name: "phone_number", value: phoneNumber }
+      ]
+    },
     callback: function(response){
       alert('Payment successful! Reference: ' + response.reference);
       // WhatsApp notification
@@ -240,7 +246,7 @@ function payWithPaystack(amount, customerEmail, orderDetails) {
         "Quantity: " + orderDetails.qty + "%0A" +
         "Service: " + orderDetails.service + "%0A" +
         "Total: KSh " + orderDetails.total + "%0A" +
-        "Notes: " + orderDetails.msg + "%0A%0A" +
+        "Payment via M-Pesa%0A" +
         "Payment Reference: " + response.reference;
       window.open("https://wa.me/254790764040?text=" + waText, "_blank");
     },
@@ -255,6 +261,7 @@ function processOrder() {
   let name = document.getElementById("name").value;
   let phone = document.getElementById("phone").value;
   let email = document.getElementById("email").value;
+  let mpesaPhone = document.getElementById("mpesaPhone").value;
   let productPrice = parseInt(document.getElementById("product").value);
   let productText = document.getElementById("product").selectedOptions[0].text;
   let qty = parseInt(document.getElementById("quantity").value) || 0;
@@ -270,10 +277,15 @@ function processOrder() {
     alert("Please enter your email.");
     return;
   }
+  if(!mpesaPhone || !/^2547\d{8}$/.test(mpesaPhone)){
+    alert("Please enter a valid M-Pesa phone number (2547XXXXXXXX).");
+    return;
+  }
 
   let orderDetails = {name, phone, email, productText, qty, service, total, msg};
 
-  payWithPaystack(total, email, orderDetails);
+  // Trigger M-Pesa payment via Paystack
+  payWithMpesa(total, email, mpesaPhone, orderDetails);
 }
 </script>
 
