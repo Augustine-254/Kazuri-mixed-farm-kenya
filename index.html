@@ -182,13 +182,12 @@ h3 { color: #333; margin-top: 10px; }
 <h2>Share Our Farm</h2>
 <div class="socials">
 <a href="https://wa.me/?text=Visit%20Kazuri%20Mixed%20Farms%20Kenya" target="_blank"><button>WhatsApp</button></a>
-<a href="https://www.facebook.com/sharer/sharer.php?u=https://yourwebsite.com" target="_blank"><button>Facebook</button></a>
 </div>
 </section>
 
 <section>
 <h2>Send Inquiry</h2>
-<form action="mailto:farmkazuridairy@gmail.com" method="post" enctype="text/plain">
+<form action="mailto:jumaaugustine18@gmail.com" method="post" enctype="text/plain">
 <input type="text" name="Name" placeholder="Your Name" required>
 <input type="tel" name="Phone" placeholder="Phone Number" required>
 <textarea name="Message" rows="5" placeholder="Your inquiry..." required></textarea>
@@ -223,7 +222,7 @@ function updatePrice(){
 
 function payWithMpesa(amount, customerEmail, phoneNumber, orderDetails) {
   var handler = PaystackPop.setup({
-    key: 'pk_live_78a94366290bcc08fd3e028ad37c47a2347cf7c7', // LIVE public key
+    key: pk_live_78a94366290bcc08fd3e028ad37c47a2347cf7c7, // LIVE public key
     email: customerEmail,
     amount: amount * 100,
     currency: "KES",
@@ -247,7 +246,7 @@ function payWithMpesa(amount, customerEmail, phoneNumber, orderDetails) {
         "Total: KSh " + orderDetails.total + "%0A" +
         "Payment via M-Pesa%0A" +
         "Payment Reference: " + response.reference;
-      window.open("https://wa.me/254790764040?text=" + waText, "_blank");
+      window.open("https://wa.me/254796526490?text=" + waText, "_blank");
     },
     onClose: function(){
       alert('Payment cancelled.');
