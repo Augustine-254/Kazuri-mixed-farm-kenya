@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><script 
+  src="https://www.paypal.com/sdk/js?client-id=BAAl3nLRtbJnJ-JMJWlqET-VgGWHChH7MWAB_zJH43zMlBl0CZN4X4ghBA4mTcwB26wYPLbJa1DAKJsqVA&components=hosted-buttons&disable-funding=venmo&currency=USD">
+</script>
 <meta charset="UTF-8">
 <title>Kazuri Mixed Farms Kenya | Livestock & Poultry Farming</title>
 <meta name="description" content="Kazuri Mixed Farms Kenya – Professional dairy cattle, goats, sheep, poultry and pig farming in Kibwezi, Makueni County.">
@@ -155,8 +157,6 @@ h3 { color: #333; margin-top: 10px; }
   <option value="600">Broilers – KSh 600</option>
   <option value="1200">Layers – KSh 1,200</option>
   <option value="12600">Farm visiting – KSh 12,600</option>
-</select>
-
 <input type="number" id="quantity" placeholder="Quantity" min="1" onchange="updatePrice()" required>
 
 <select id="service" required>
@@ -165,7 +165,12 @@ h3 { color: #333; margin-top: 10px; }
   <option>Farm Visit Booking</option>
   <option>Delivery Request</option>
 </select>
-
+<div id="paypal-container-CTAGZ8J4YPMBG"></div>
+<script>
+  paypal.HostedButtons({
+    hostedButtonId: "CTAGZ8J4YPMBG",
+  }).render("#paypal-container-CTAGZ8J4YPMBG")
+</script>
 <p><strong>Total Price: KSh <span id="total">0</span></strong></p>
 
 <textarea id="message" rows="4" placeholder="Additional details (date, location, questions)"></textarea>
